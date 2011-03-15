@@ -5,7 +5,7 @@ module EventStore
     describe ActiveRecordAdapter do
       before(:each) do
         # Use an in-memory sqlite db
-        @adapter = ActiveRecordAdapter.new(:adapter => 'sqlite3', :database => ':memory:')
+        @adapter = ActiveRecordAdapter.new(Rcqrs::Guid.new, :adapter => 'sqlite3', :database => ':memory:')
         @aggregate = Domain::Company.create('ACME Corp')
       end
 

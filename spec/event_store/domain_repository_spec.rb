@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), '../spec_helper')
 module EventStore
   describe DomainRepository do
     before(:each) do
-      @storage = Adapters::InMemoryAdapter.new
+      @storage = Adapters::InMemoryAdapter.new(Rcqrs::Guid.new)
       @repository = DomainRepository.new(@storage)
       @aggregate = Domain::Company.create('ACME Corp.')
     end

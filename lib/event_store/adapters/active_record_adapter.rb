@@ -19,7 +19,11 @@ module EventStore
     end
 
     class ActiveRecordAdapter < EventStore::DomainEventStorage
-      def initialize(options={})
+      
+      attr_reader :tenant
+
+      def initialize(tenant, options={})
+        @tenant = tenant
         options.reverse_merge!(:adapter => 'sqlite3', :database => 'events.db')
         establish_connection(options)
         ensure_tables_exist
@@ -62,6 +66,7 @@ module EventStore
 
       def create_provider(aggregate)
         EventProvider.create!(
+          :tenant_id => @tenant,
           :aggregate_id => aggregate.guid,
           :aggregate_type => aggregate.class.name,
           :version => 0)
@@ -92,13 +97,14 @@ module EventStore
         return if EventProvider.table_exists?
         
         provider_connection.create_table(:event_providers) do |t|
-          t.string :aggregate_id, :limit => 36, :primary => true
+          t.string :tenant_id, :null => false, :limit => 36, :primary => true          
+          t.string :aggregate_id, :null => false, :limit => 36, :primary => true
           t.string :aggregate_type, :null => false
           t.integer :version, :null => false
           t.timestamps
         end
 
-        provider_connection.add_index :event_providers, :aggregate_id, :unique => true
+        provider_connection.add_index :event_providers, [:tenant_id, :aggregate_id], :unique => true
       end
       
       def ensure_events_table_exists

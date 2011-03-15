@@ -27,9 +27,10 @@ module EventStore
     end
     
     class InMemoryAdapter < EventStore::DomainEventStorage
-      attr_reader :storage
+      attr_reader :tenant, :storage
       
-      def initialize(options={})
+      def initialize(tenant, options={})
+        @tenant = tenant
         @storage = {}
       end
       
