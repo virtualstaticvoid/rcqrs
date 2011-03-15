@@ -95,10 +95,10 @@ module EventStore
       
       def ensure_event_providers_table_exists
         return if EventProvider.table_exists?
-        
+
         provider_connection.create_table(:event_providers) do |t|
-          t.string :tenant_id, :null => false, :limit => 36, :primary => true          
-          t.string :aggregate_id, :null => false, :limit => 36, :primary => true
+          t.string :tenant_id, :null => false, :limit => 36     
+          t.string :aggregate_id, :null => false, :limit => 36
           t.string :aggregate_type, :null => false
           t.integer :version, :null => false
           t.timestamps
