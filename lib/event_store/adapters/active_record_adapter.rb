@@ -78,7 +78,7 @@ module EventStore
             :aggregate_id => event.aggregate_id,
             :event_type => event.class.name,
             :version => event.version,
-            :data => event.attributes_to_json)
+            :data => event.to_json)
         end
       end
       
@@ -95,7 +95,7 @@ module EventStore
       
       def ensure_event_providers_table_exists
         return if EventProvider.table_exists?
-
+        
         provider_connection.create_table(:event_providers) do |t|
           t.string :tenant_id, :null => false, :limit => 36     
           t.string :aggregate_id, :null => false, :limit => 36
