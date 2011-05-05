@@ -57,7 +57,7 @@ Gem::Specification.new do |s|
      "spec/events/handlers/event_handler_spec.rb",
      "spec/events/invoice_created_event.rb",
      "spec/initializer_spec.rb",
-     "spec/mock_router.rb",
+     "spec/bus/mock_router.rb",
      "spec/reporting/company.rb",
      "spec/spec_helper.rb"
   ]
@@ -85,7 +85,7 @@ Gem::Specification.new do |s|
      "spec/events/handlers/event_handler_spec.rb",
      "spec/events/invoice_created_event.rb",
      "spec/initializer_spec.rb",
-     "spec/mock_router.rb",
+     "spec/bus/mock_router.rb",
      "spec/reporting/company.rb",
      "spec/spec_helper.rb"
   ]
